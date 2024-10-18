@@ -1,6 +1,7 @@
 package com.example.lucene;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -37,7 +38,11 @@ public class Searcher {
     }
 
     private static void analyzeQueries(String queriesPath, IndexSearcher searcher, String outputPath) throws Exception {
-        Analyzer analyzer = new StandardAnalyzer();
+        // Standard analyser
+        // Analyzer analyzer = new StandardAnalyzer();
+
+        // English analyser
+        EnglishAnalyzer analyzer = new EnglishAnalyzer();
 
         // Field names and their boost factors for multi-field queries
         HashMap<String, Float> boostedScores = new HashMap<>();

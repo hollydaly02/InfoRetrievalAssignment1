@@ -1,6 +1,7 @@
 package com.example.lucene;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.StringField;
@@ -23,8 +24,13 @@ public class CranfieldParserIndexer {
 
     public static void main(String[] args) {
         try {
-            // Setup the analyzer and index writer
-            Analyzer analyzer = new StandardAnalyzer();
+            // Setup the analyser and index writer
+            // Standard analyser
+           // Analyzer analyzer = new StandardAnalyzer();
+
+            // English analyser
+            EnglishAnalyzer analyzer = new EnglishAnalyzer();
+
             Directory directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
