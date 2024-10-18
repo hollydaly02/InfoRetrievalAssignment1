@@ -71,10 +71,8 @@ public class Searcher {
         for (ScoreDoc hit : hits) {
             Document doc = searcher.doc(hit.doc);
             float score = hit.score; // Use the Lucene score
-            // Ensure the first column does not exceed 225
-            int outputQueryId = Math.min(queryId, 225);
             // Write in the required format
-            writer.write(String.format("%d Q0 %s %d %.4f STANDARD%n", outputQueryId, doc.get("id"), rank, score));
+            writer.write(String.format("%d Q0 %s %d %.4f STANDARD%n", queryId, doc.get("id"), rank, score));
             rank++; // Increment rank for the next document
         }
     }
