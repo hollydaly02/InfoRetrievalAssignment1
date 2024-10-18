@@ -71,6 +71,12 @@ public class Searcher {
         for (ScoreDoc hit : hits) {
             Document doc = searcher.doc(hit.doc);
             float score = hit.score; // Use the Lucene score
+            
+            // Ensure queryId does not exceed 225
+            if (queryId > 225) {
+                queryId = 225; // Cap queryId to 225
+            }
+
             // Write in the required format
             writer.write(String.format("%d Q0 %s %d %.4f STANDARD%n", queryId, doc.get("id"), rank, score));
             rank++; // Increment rank for the next document
