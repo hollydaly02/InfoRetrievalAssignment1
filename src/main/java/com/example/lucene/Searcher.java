@@ -23,11 +23,11 @@ import java.util.HashMap;
 public class Searcher {
 
     public static void main(String[] args) throws Exception {
-        String indexPath = "index"; // Path to your index directory
-        String queriesPath = "src\\main\\java\\com\\example\\lucene\\cran.qry"; // Path to your queries file
+        String indexPath = "index"; // Path to index folder
+        String queriesPath = "src\\main\\java\\com\\example\\lucene\\cran.qry"; // Path to queries file
         String outputPath = "results.txt"; // Output file path
 
-        // Initialize the searcher
+        // Initialise the searcher
         IndexSearcher searcher = createSearcher(indexPath);
         analyzeQueries(queriesPath, searcher, outputPath);
     }
@@ -41,7 +41,7 @@ public class Searcher {
         // Standard analyser, uncomment the desired anaylser
         Analyzer analyzer = new StandardAnalyzer();
 
-        // English analyser
+        // English analyser, uncomment the desired anaylser
        // EnglishAnalyzer analyzer = new EnglishAnalyzer();
 
         // Field names and their boost factors for multi-field queries
@@ -49,7 +49,7 @@ public class Searcher {
         boostedScores.put("title", 1.0f);
         boostedScores.put("author", 0.5f);
         boostedScores.put("bibliography", 0.2f);
-        boostedScores.put("content", 1.0f); // Ensure the field names match your indexing fields
+        boostedScores.put("content", 1.0f); // Ensure the field names match indexing fields
 
         MultiFieldQueryParser parser = new MultiFieldQueryParser(boostedScores.keySet().toArray(new String[0]), analyzer, boostedScores);
 
@@ -59,7 +59,7 @@ public class Searcher {
             int queryId = 1; // Start query ID from 1
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                if (!line.isEmpty() && queryId <= 225) {
+                if (!line.isEmpty() && queryId <= 225) { // ensure queries above 225 aren't processed
                     Query query = parser.parse(QueryParser.escape(line));
                     performSearch(searcher, query, queryId, writer);
                     queryId++; // Increment query ID for the next query
@@ -72,11 +72,11 @@ public class Searcher {
         TopDocs results = searcher.search(query, 10); // Retrieve top 10 hits
         ScoreDoc[] hits = results.scoreDocs;
 
-        int rank = 1; // Initialize rank for each query
+        int rank = 1; // Initialise rank for each query
         for (ScoreDoc hit : hits) {
             Document doc = searcher.doc(hit.doc);
             float score = hit.score; // Use the Lucene score
-            // Write in the required format
+            // Write in the text format
             writer.write(String.format("%d Q0 %s %d %.4f STANDARD%n", queryId, doc.get("id"), rank, score));
             rank++; // Increment rank for the next document
         }

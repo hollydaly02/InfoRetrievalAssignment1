@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 
 public class CranfieldParserIndexer {
 
-    private static final String INDEX_DIRECTORY = "index"; // Specify your index directory path
+    private static final String INDEX_DIRECTORY = "index"; 
 
     public static void main(String[] args) {
         try {
@@ -68,7 +68,7 @@ public class CranfieldParserIndexer {
                 if (line.startsWith(".I")) {
                     // Index the previous document
                     if (doc != null) {
-                        // Add the accumulated content to the document
+                        // Add the retreived content to the document
                         if (contentBuilder.length() > 0) {
                             doc.add(new TextField("content", contentBuilder.toString(), TextField.Store.YES));
                             contentBuilder.setLength(0);
@@ -92,7 +92,7 @@ public class CranfieldParserIndexer {
                     } else if (currentField.equals("Author")) {
                         doc.add(new TextField("author", line, TextField.Store.YES));
                     } else if (currentField.equals("Content")) {
-                        contentBuilder.append(line).append(" "); // Append to content
+                        contentBuilder.append(line).append(" "); 
                     }
                 }
             }
