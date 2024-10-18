@@ -39,10 +39,10 @@ public class Searcher {
 
     private static void analyzeQueries(String queriesPath, IndexSearcher searcher, String outputPath) throws Exception {
         // Standard analyser, uncomment the desired anaylser
-        Analyzer analyzer = new StandardAnalyzer();
+        //Analyzer analyzer = new StandardAnalyzer();
 
         // English analyser, uncomment the desired anaylser
-       // EnglishAnalyzer analyzer = new EnglishAnalyzer();
+        EnglishAnalyzer analyzer = new EnglishAnalyzer();
 
         // Field names and their boost factors for multi-field queries
         HashMap<String, Float> boostedScores = new HashMap<>();

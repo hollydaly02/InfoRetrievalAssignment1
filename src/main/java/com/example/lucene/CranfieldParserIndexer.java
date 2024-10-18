@@ -26,10 +26,10 @@ public class CranfieldParserIndexer {
         try {
             // Setup the analyser and index writer, uncomment desired analyser
             // Standard analyser
-           Analyzer analyzer = new StandardAnalyzer();
+           //Analyzer analyzer = new StandardAnalyzer();
 
             // English analyser
-            //EnglishAnalyzer analyzer = new EnglishAnalyzer();
+            EnglishAnalyzer analyzer = new EnglishAnalyzer();
 
             Directory directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
