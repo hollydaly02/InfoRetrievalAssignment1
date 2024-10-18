@@ -63,19 +63,14 @@ public class Searcher {
         }
     }
 
-    private static void performSearch(IndexSearcher searcher, Query query, int originalQueryId, FileWriter writer) throws IOException {
+    private static void performSearch(IndexSearcher searcher, Query query, int queryId, FileWriter writer) throws IOException {
         TopDocs results = searcher.search(query, 10); // Retrieve top 10 hits
         ScoreDoc[] hits = results.scoreDocs;
 
         int rank = 1; // Initialize rank for each query
-
-        // Ensure the first column (query ID) does not exceed 225
-        int queryId = Math.min(originalQueryId, 225); // Cap the query ID to 225
-
         for (ScoreDoc hit : hits) {
             Document doc = searcher.doc(hit.doc);
             float score = hit.score; // Use the Lucene score
-            
             // Write in the required format
             writer.write(String.format("%d Q0 %s %d %.4f STANDARD%n", queryId, doc.get("id"), rank, score));
             rank++; // Increment rank for the next document
